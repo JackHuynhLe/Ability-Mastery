@@ -1,0 +1,244 @@
+/* General Reset and Base Styling */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    line-height: 1.5;
+}
+
+header {
+    margin: 2rem 0;
+}
+
+h1.game-title {
+    font-size: 2rem;
+    color: #333;
+}
+
+p.game-description {
+    font-size: 1rem;
+    color: #555;
+    margin: 0 10%;
+}
+
+/* Scoreboard */
+.scoreboard {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 0;
+    flex-wrap: wrap; /* Wrap elements for smaller screens */
+}
+
+.score-item {
+    background-color: #fff;
+    padding: 1em;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.1);
+}
+
+.score-item p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+/* Play Button */
+.play-section {
+    margin: 1.5rem 0;
+}
+
+#play-button {
+    padding: 0.6em 1.2em;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#play-button:hover {
+    background-color: #0056b3;
+}
+
+
+/* Champion Name Section */
+.champion-name-section {
+    text-align: center;
+    margin: 1em 0;
+}
+
+#champion-name {
+    font-size: 1.5em;
+    color: #444;
+}
+
+/* Character Image Section */
+.character-section {
+    margin: 2rem 0;
+}
+
+#character-image-container {
+    width: 25%; 
+    margin: 0 auto;
+}
+
+#character-image {
+    width: 100%;
+    height: auto;
+    border: 0.2em solid #ddd;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.2em 0.6em rgba(0, 0, 0, 0.2);
+}
+
+/* Ability Slots */
+.ability-slots {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+}
+
+.ability-slot {
+    position: relative; 
+    background-color: #e8e8e8;
+    width: 6rem; 
+    height: 6rem;
+    padding: 0;
+    border: 0.1em dashed #bbb;
+    border-radius: 0.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Ensures the image stays within the slot */
+    text-align: center;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+/* Placeholder Image */
+.ability-slot img.placeholder {
+    position: absolute;
+    width: 100%; 
+    height: 100%;
+    object-fit: cover; 
+    border-radius: 0.3rem;
+    z-index: 1; /* Ensures the image stays behind the text */
+    box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.1);
+}
+
+/* Ability Labels */
+.ability-slot .ability-label {
+    position: absolute;
+    top:60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1em; 
+    font-weight: bold;
+    color: #fff; 
+    text-shadow: 0 0.1em 0.3em rgba(0, 0, 0, 0.7); 
+    z-index: 2; /* Ensures the text stays above the image */
+}
+
+
+
+/* Drag-and-Drop Area */
+.ability-drag-area {
+    margin: 2rem 0;
+}
+
+.abilities-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap; /* Allows wrapping for smaller screens */
+    margin: 0 5%;
+}
+
+.abilities-container div {
+    background-color: #fff;
+    width: 6rem; 
+    height: 6rem;
+    border-radius: 0.3rem;
+    box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-size: 0.8rem;
+    color: #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    transition: transform 0.2s ease;
+}
+
+.abilities-container div:active {
+    cursor: grabbing;
+    transform: scale(1.1);
+}
+
+/* Placeholder Image */
+.ability-slot img.placeholder {
+    width: 100%;
+    height: auto;
+    border-radius: 0.3rem;
+    border: 0.1em solid #ccc;
+    box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.1);
+}
+
+
+/* Footer */
+footer {
+    margin-top: 3rem;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    #character-image-container {
+        width: 40%;
+    }
+
+    .ability-slot, .abilities-container div {
+        width: 4.5rem;
+        height: 4.5rem;
+    }
+
+    .score-item {
+        padding: 0.8em;
+        font-size: 0.8rem;
+    }
+
+    #play-button {
+        padding: 0.5em 1em;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #character-image-container {
+        width: 50%;
+    }
+
+    .ability-slot, .abilities-container div {
+        width: 4rem;
+        height: 4rem;
+    }
+
+    h1.game-title {
+        font-size: 1.8rem;
+    }
+
+    p.game-description {
+        font-size: 0.9rem;
+    }
+}

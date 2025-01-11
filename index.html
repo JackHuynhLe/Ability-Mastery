@@ -1,84 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ability Mastery</title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
     <header>
-        <h1 class="game-title">Ability Mastery</h1>
-        <p class="game-description">Test your mastery of League of Legends abilities by matching the correct abilities to each champion!</p>
+      <h1 class="game-title">Ability Mastery</h1>
+      <p class="game-description">
+        Test your mastery of League of Legends abilities by matching the correct
+        abilities to each champion!
+      </p>
     </header>
 
     <main>
+      <!-- Scoreboard -->
+      <section class="scoreboard">
+        <div class="score-item">
+          <p><strong>Correct:</strong> <span id="correct-score">0</span></p>
+        </div>
+        <div class="score-item">
+          <p><strong>Incorrect:</strong> <span id="incorrect-score">0</span></p>
+        </div>
+        <div class="score-item">
+          <p>
+            <strong>Current Streak:</strong> <span id="current-streak">0</span>
+          </p>
+        </div>
+        <div class="score-item">
+          <p>
+            <strong>Longest Streak:</strong> <span id="longest-streak">0</span>
+          </p>
+        </div>
+        <div class="score-item">
+          <p><strong>Time Left:</strong> <span id="timer">60</span> seconds</p>
+        </div>
+      </section>
 
-        <!-- Scoreboard -->
-        <section class="scoreboard">
-            <div class="score-item">
-                <p><strong>Correct:</strong> <span id="correct-score">0</span></p>
-            </div>
-            <div class="score-item">
-                <p><strong>Incorrect:</strong> <span id="incorrect-score">0</span></p>
-            </div>
-            <div class="score-item">
-                <p><strong>Current Streak:</strong> <span id="current-streak">0</span></p>
-            </div>
-            <div class="score-item">
-                <p><strong>Longest Streak:</strong> <span id="longest-streak">0</span></p>
-            </div>
-            <div class="score-item">
-                <p><strong>Time Left:</strong> <span id="timer">60</span> seconds</p>
-            </div>
-        </section>
+      <!-- Play Button -->
+      <section class="play-section">
+        <button id="play-button">Play</button>
+      </section>
 
-        <!-- Play Button -->
-        <section class="play-section">
-            <button id="play-button">Play</button>
-        </section>
+      <!-- Champion Name -->
+      <section class="champion-name-section">
+        <h2 id="champion-name">Champion: ?</h2>
+      </section>
 
-        <!-- Character Image Section -->
-        <section class="character-section">
-            <div id="character-image-container">
-                <img id="character-image" src="#" alt="Champion Image">
-            </div>
-        </section>
+      <!-- Character Image Section -->
+      <section class="character-section">
+        <div id="character-image-container">
+          <img
+            id="character-image"
+            src="assets/pictures/missing_ping.jpg"
+            alt="Champion Image"
+          />
+        </div>
+      </section>
 
-        <!-- Ability Slots -->
-        <section class="ability-slots">
-            <div class="ability-slot" id="passive-slot">
-                <p>Passive</p>
-            </div>
-            <div class="ability-slot" id="q-slot">
-                <p>Q</p>
-            </div>
-            <div class="ability-slot" id="w-slot">
-                <p>W</p>
-            </div>
-            <div class="ability-slot" id="e-slot">
-                <p>E</p>
-            </div>
-            <div class="ability-slot" id="r-slot">
-                <p>R</p>
-            </div>
-        </section>
-
-        <!-- Ability Drag-and-Drop Area -->
-        <section class="ability-drag-area">
-            <h2>Drag and Drop Abilities Below:</h2>
-            <div class="abilities-container" id="abilities-container">
-                <!-- Ability icons will be populated here dynamically via JavaScript -->
-            </div>
-        </section>
+      <!-- Ability Slots -->
+      <section class="ability-slots">
+        <div class="ability-slot" id="passive-slot">
+          <img
+            src="assets/pictures/missing_ping.jpg"
+            alt="Passive Ability"
+            class="placeholder"
+          />
+          <p class="ability-label">Passive</p>
+        </div>
+        <div class="ability-slot" id="q-slot">
+          <img
+            src="assets/pictures/missing_ping.jpg"
+            alt="Q Ability"
+            class="placeholder"
+          />
+          <p class="ability-label">Q</p>
+        </div>
+        <div class="ability-slot" id="w-slot">
+          <img
+            src="assets/pictures/missing_ping.jpg"
+            alt="W Ability"
+            class="placeholder"
+          />
+          <p class="ability-label">W</p>
+        </div>
+        <div class="ability-slot" id="e-slot">
+          <img
+            src="assets/pictures/missing_ping.jpg"
+            alt="E Ability"
+            class="placeholder"
+          />
+          <p class="ability-label">E</p>
+        </div>
+        <div class="ability-slot" id="r-slot">
+          <img
+            src="assets/pictures/missing_ping.jpg"
+            alt="R Ability"
+            class="placeholder"
+          />
+          <p class="ability-label">R</p>
+        </div>
+      </section>
     </main>
 
     <footer>
-        <p>&copy; 2025 Ability Mastery</p>
+      <p>&copy; 2025 Ability Mastery</p>
     </footer>
 
     <script src="js/dragAndDrop.js"></script>
     <script src="js/fetchData.js"></script>
     <script src="js/gameLogic.js"></script>
-</body>
+  </body>
 </html>
