@@ -436,7 +436,7 @@ function submitAnswers() {
     setTimeout(() => {
       alert("Incorrect abilities! Try again.");
     }, 300); // Delay alert by 300ms to allow sound to start playing
-  }  
+  }
 }
 
 /**
@@ -459,6 +459,36 @@ function hidePlayButton() {
 }
 
 /**
+ * Refreshes the current champion.
+ *
+ * This function resets the ability slots, reloads the current champion's data and abilities,
+ * and reinitializes the drag-and-drop functionality. It is useful for scenarios where the user
+ * wants to start over with a new champion without restarting the entire game.
+ *
+ * Steps:
+ * 1. Clears the current ability slots.
+ * 2. Reloads the current champion's data and abilities.
+ * 3. Reinitializes drag-and-drop interactions for the updated abilities.
+ *
+ * @async
+ * @function refreshChampion
+ */
+async function refreshChampion() {
+  console.log("Refreshing the current champion...");
+
+  // Clear the dropped abilities
+  clearDroppedAbilities();
+
+  // Reload the current champion's abilities and display
+  await preloadChampionData();
+
+  // Reinitialize drag-and-drop functionality
+  initializeDragAndDrop();
+
+  console.log("Champion refreshed.");
+}
+
+/**
  * Initializes event listeners for the action buttons (Clear and Submit).
  *
  * This function sets up click event listeners for the Clear and Submit buttons to handle their respective actions:
@@ -469,6 +499,7 @@ function hidePlayButton() {
  * 1. Select the Clear and Submit buttons from the DOM using their respective IDs.
  * 2. Attach a click event listener to the Clear button to invoke `clearDroppedAbilities`.
  * 3. Attach a click event listener to the Submit button to invoke `submitAnswers`.
+ * 4. Attach a click event listener to the Refresh button to invoke `refreshChampion`.
  *
  * @function initializeActionButtons
  * @returns {void} This function does not return any value.
@@ -476,6 +507,7 @@ function hidePlayButton() {
 function initializeActionButtons() {
   const clearButton = document.getElementById("clear-button");
   const submitButton = document.getElementById("submit-button");
+  const refreshButton = document.getElementById("refresh-button");
 
   // Add click listener to the Clear button
   clearButton.addEventListener("click", () => {
@@ -485,6 +517,11 @@ function initializeActionButtons() {
   // Add click listener to the Submit button
   submitButton.addEventListener("click", () => {
     submitAnswers();
+  });
+
+  // Add click listener to the Refresh button
+  refreshButton.addEventListener("click", async () => {
+    await refreshChampion(); // Call the refresh function
   });
 }
 
