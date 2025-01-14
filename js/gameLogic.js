@@ -8,17 +8,20 @@ let currentChampionAbilities = []; // Store the current champion's abilities
  * Preloads data for a random champion and their abilities.
  *
  * This function fetches all champion data from an external source, selects a random champion,
- * and retrieves their abilities (including some random abilities from other champions).
- * It then displays the selected champion and their abilities on the page.
+ * retrieves their abilities (including random abilities from other champions), and displays
+ * the selected champion and their abilities on the page.
  *
- * Steps:
- * 1. Fetches the champion data.
- * 2. Selects a random champion from the fetched data.
- * 3. Retrieves a set of abilities, including those of the selected champion and random other champions.
- * 4. Displays the selected champion and their abilities on the page.
+ * Process:
+ * 1. Fetch all champion data using `fetchChampionData`.
+ * 2. Log the retrieved champion data for debugging purposes.
+ * 3. Randomly select a champion from the fetched data.
+ * 4. Retrieve the selected champion's abilities and additional random abilities using `getRandomChampionAbilities`.
+ * 5. Display the selected champion's name and splash art using `displayChampion`.
+ * 6. Display the selected champion's abilities in the UI using `displayAbilities`.
  *
  * @async
  * @function preloadChampionData
+ * @returns {Promise<void>} This function does not return any value but operates asynchronously.
  */
 export async function preloadChampionData() {
   champions = await fetchChampionData(); // Get all champion data
@@ -36,11 +39,15 @@ export async function preloadChampionData() {
  *
  * This function updates the DOM to show the name and splash art of the given champion.
  * It modifies the content of the champion's name and image elements on the page.
- * If the champion's splash art is unavailable, the alt text is used for better accessibility.
+ * If the champion's splash art is unavailable, an appropriate alt text is set for accessibility.
+ *
+ * Process:
+ * 1. Update the champion's name in the designated DOM element.
+ * 2. Set the champion's splash art image in the designated image element.
+ * 3. Provide an alt attribute with a descriptive fallback in case the image fails to load.
  *
  * @param {string} champion - The name of the champion to display.
- *
- * @function displayChampion
+ * @returns {void} This function does not return any value.
  */
 function displayChampion(champion) {
   const championNameElement = document.getElementById("champion-name");
@@ -51,20 +58,34 @@ function displayChampion(champion) {
 }
 
 /**
- * Retrieves the abilities (Q, W, E, R, Passive) of the given champion, including their names and images.
+ * Retrieves the abilities (Passive, Q, W, E, R) of the given champion.
  *
- * This function extracts the abilities of a specified champion from the global `champions` data,
- * including their names and image URLs for display. It returns an array of ability objects that
- * contain the ability's name and the URL for the corresponding image.
+ * This function extracts the abilities of a specified champion from the global `champions` data.
+ * It retrieves both the passive ability and the four spell abilities (Q, W, E, R) and
+ * constructs an array of ability objects containing the name and image URL for each ability.
+ *
+ * Process:
+ * 1. Access the champion's data from the `champions` object using the provided champion name.
+ * 2. Add the champion's passive ability to the abilities array, including its name and image URL.
+ * 3. Add the champion's spell abilities (Q, W, E, R) to the abilities array in order,
+ *    including their names and image URLs.
+ * 4. Log the retrieved abilities for debugging purposes.
+ * 5. Return the constructed abilities array.
  *
  * @param {string} champion - The name of the champion whose abilities are to be fetched.
- * @returns {Array} An array of ability objects, each containing a name and image URL for the ability.
- *
- * @function getChampionAbilities
+ * @returns {Array} An array of ability objects, each containing a `name` and `image` property.
  */
 function getChampionAbilities(champion) {
   const championData = champions[champion];
   const abilities = [];
+
+  // Add the champion's passive ability, with its name
+  if (championData.passive) {
+    abilities.push({
+      name: championData.passive.name,
+      image: `https://ddragon.leagueoflegends.com/cdn/15.1.1/img/passive/${championData.passive.image.full}`,
+    });
+  }
 
   // Include the champion's abilities (Q, W, E, R, Passive) with their names
   if (championData.spells) {
@@ -88,29 +109,32 @@ function getChampionAbilities(champion) {
     );
   }
 
-  // Add the champion's passive ability, with its name
-  if (championData.passive) {
-    abilities.push({
-      name: championData.passive.name,
-      image: `https://ddragon.leagueoflegends.com/cdn/15.1.1/img/passive/${championData.passive.image.full}`,
-    });
-  }
-
   console.log("Selected Champion Abilities:", abilities); // Log the selected champion's abilities
   return abilities;
 }
 
 /**
- * Retrieves abilities from the selected champion and randomly selects additional abilities from other champions.
+ * Retrieves a mix of abilities from the selected champion and random abilities from other champions.
  *
- * This function first fetches the abilities (Q, W, E, R, Passive) of the selected champion using the
- * `getChampionAbilities` function and adds them to a list. Then, it randomly selects abilities from other
- * champions to fill up to 20 total abilities, ensuring a mix of abilities from different champions.
+ * This function constructs an array of ability objects containing the abilities of the selected champion
+ * (Passive, Q, W, E, R) and additional random abilities from other champions to fill the list to a total of 20.
+ * Each ability object includes the name and image URL of the ability.
  *
- * @param {string} selectedChampion - The name of the champion whose abilities will be added to the list.
- * @returns {Array} An array of ability objects, each containing the name and image URL of the ability.
+ * Process:
+ * 1. Fetch the selected champion's abilities using `getChampionAbilities` and add them to the abilities list.
+ * 2. Determine the number of additional abilities needed to reach a total of 20.
+ * 3. Randomly select abilities from other champions:
+ *    - Choose a random champion from the available pool (excluding the selected champion).
+ *    - Randomly pick an ability type (Passive, Q, W, E, R) from the selected champion.
+ *    - Add the chosen ability to the list if valid.
+ * 4. Ensure each ability added contains its name and image URL.
+ * 5. Log the final list of abilities for debugging purposes.
+ * 6. Return the completed abilities list.
  *
+ * @async
  * @function getRandomChampionAbilities
+ * @param {string} selectedChampion - The name of the champion whose abilities are being featured.
+ * @returns {Promise<Array>} A promise resolving to an array of ability objects, each containing `name` and `image`.
  */
 async function getRandomChampionAbilities(selectedChampion) {
   const abilities = [];
@@ -188,17 +212,26 @@ async function getRandomChampionAbilities(selectedChampion) {
 }
 
 /**
- * Displays a list of abilities in a randomized order in the abilities container.
+ * Displays a shuffled list of abilities in the abilities container.
  *
- * This function clears the previous abilities (if any) from the abilities container,
- * shuffles the abilities array to randomize their order, and then dynamically creates
- * HTML elements for each ability. The abilities are displayed with their image and name.
- * Each ability is made draggable for interaction.
+ * This function populates the abilities container with a randomized display of abilities,
+ * creating interactive elements for each ability. It ensures each ability is draggable
+ * and integrates with the drag-and-drop functionality.
  *
- * @param {Array} abilities - An array of ability objects, each containing a name and image URL.
- * @returns {void} This function does not return any value.
+ * Process:
+ * 1. Clear the abilities container to remove any previously displayed abilities.
+ * 2. Shuffle a copy of the provided abilities array to randomize their order for display.
+ * 3. For each ability:
+ *    - Create a `div` element with the class `ability`.
+ *    - Assign a unique ID for identification during drag-and-drop interactions.
+ *    - Populate the element with the ability's image and name.
+ *    - Mark the element as draggable.
+ * 4. Append each ability element to the abilities container.
+ * 5. Reinitialize drag-and-drop functionality to make the new elements interactive.
  *
  * @function displayAbilities
+ * @param {Array} abilities - An array of ability objects, each containing a `name` and `image` property.
+ * @returns {void} This function does not return any value.
  */
 function displayAbilities(abilities) {
   const abilitiesContainer = document.getElementById("abilities-container");
@@ -206,15 +239,15 @@ function displayAbilities(abilities) {
   // Clear previous abilities
   abilitiesContainer.innerHTML = "";
 
-  // Shuffle abilities for randomness
-  const shuffledAbilities = shuffleArray(abilities);
+  // Shuffle a copy of the abilities array for display
+  const shuffledAbilities = shuffleArray([...abilities]); // Copy the array
 
   // Add abilities to the DOM
   shuffledAbilities.forEach((ability, index) => {
     const abilityDiv = document.createElement("div");
     abilityDiv.classList.add("ability");
 
-    // Assign unique ID
+    // Assign a unique ID for identification
     abilityDiv.setAttribute("id", `ability-${index}`);
     abilityDiv.setAttribute("draggable", true);
     abilityDiv.innerHTML = `
@@ -231,14 +264,19 @@ function displayAbilities(abilities) {
 /**
  * Shuffles an array in place using the Fisher-Yates (Knuth) algorithm.
  *
- * This function takes an array and randomly reorders its elements. It modifies
- * the original array and does not create a new one. The Fisher-Yates algorithm
- * ensures that each element has an equal probability of appearing in each position.
+ * This function randomizes the order of elements within the provided array.
+ * It modifies the original array directly and returns the shuffled array.
+ * The Fisher-Yates algorithm ensures an unbiased and uniform random distribution of elements.
  *
- * @param {Array} array - The array to be shuffled.
- * @returns {Array} The shuffled array, with the original array being modified.
+ * Process:
+ * 1. Iterate through the array from the last element to the second element.
+ * 2. For each element, generate a random index `j` between 0 and the current index `i`.
+ * 3. Swap the elements at indices `i` and `j`.
+ * 4. Continue until all elements have been processed.
  *
  * @function shuffleArray
+ * @param {Array} array - The array to be shuffled.
+ * @returns {Array} The shuffled array, with the original array modified in place.
  */
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -247,20 +285,25 @@ function shuffleArray(array) {
   }
   return array;
 }
+
 /**
- * Clears all dropped abilities from the slots.
+ * Clears all dropped abilities from the slots and resets the game state.
  *
- * This function resets each ability slot by replacing the current image with the default placeholder image
- * and restoring its default styles (border, background color, and shadow). It also re-enables dragging
- * for all abilities, ensuring the game can be played again.
+ * This function restores each ability slot to its initial state by resetting the image,
+ * styles, and any associated data. It also reactivates dragging for all abilities, ensuring
+ * the game can be played again from a clean state.
  *
- * Steps:
- * 1. Iterate through all ability slots.
- * 2. Reset each slot's image to the placeholder.
- * 3. Restore default styles for the slots.
- * 4. Enable dragging for all ability elements and reset their opacity.
+ * Process:
+ * 1. Iterate through all ability slots:
+ *    - Replace the current slot image with the default placeholder image.
+ *    - Reset slot styles, including border, shadow, and background color.
+ * 2. Iterate through all draggable abilities:
+ *    - Reactivate the `draggable` attribute for all abilities.
+ *    - Reset the opacity of abilities to make them fully visible.
+ * 3. Log a message to confirm that all slots and abilities have been reset.
  *
  * @function clearDroppedAbilities
+ * @returns {void} This function does not return any value.
  */
 function clearDroppedAbilities() {
   const slots = document.querySelectorAll(".ability-slot");
@@ -291,12 +334,17 @@ function clearDroppedAbilities() {
 }
 
 /**
- * Displays the "Clear" and "Submit" buttons.
+ * Displays the action buttons (Clear and Submit).
  *
- * This function makes the action buttons (Clear and Submit) visible by modifying their CSS `display` property.
- * The buttons are hidden by default and appear only after the "Play" button is clicked.
+ * This function makes the action buttons visible by updating their `display` style property.
+ * The buttons are initially hidden and only appear when this function is called.
+ *
+ * Process:
+ * 1. Select the action buttons container from the DOM using its ID.
+ * 2. Update the container's `display` property to "flex" to make the buttons visible.
  *
  * @function showActionButtons
+ * @returns {void} This function does not return any value.
  */
 function showActionButtons() {
   const actionButtons = document.getElementById("action-buttons");
@@ -304,18 +352,119 @@ function showActionButtons() {
 }
 
 /**
- * Initializes event listeners for action buttons.
+ * Resets the game state for a new round.
  *
- * This function attaches click event listeners to the Clear and Submit buttons:
- * - The Clear button triggers `clearDroppedAbilities` to reset the game state.
- * - The Submit button is a placeholder for future functionality.
+ * This function prepares the game for a new champion by clearing the current state,
+ * reloading a new champion with its abilities, and reinitializing drag-and-drop functionality.
+ * The action buttons (Clear and Submit) are hidden during the reset process and shown again afterward.
  *
- * Steps:
- * 1. Select the Clear and Submit buttons from the DOM.
- * 2. Attach a click event listener to the Clear button to clear all dropped abilities.
- * 3. Attach a click event listener to the Submit button to log a placeholder message.
+ * Process:
+ * 1. Hide the action buttons by updating their `display` style property.
+ * 2. Clear all dropped abilities and reset slots using `clearDroppedAbilities`.
+ * 3. Fetch and display a new random champion and its abilities using `preloadChampionData`.
+ * 4. Reinitialize drag-and-drop functionality for the new abilities and slots.
+ * 5. Show the action buttons again after the reset is complete.
+ *
+ * @async
+ * @function resetGameState
+ * @returns {Promise<void>} This function returns a promise that resolves when the new champion data is loaded and the game state is reset.
+ */
+async function resetGameState() {
+  const actionButtons = document.getElementById("action-buttons");
+
+  // Hide the action buttons
+  actionButtons.style.display = "none";
+
+  // Clear dropped abilities
+  clearDroppedAbilities();
+
+  // Fetch and load a new champion
+  await preloadChampionData();
+
+  // Reinitialize drag-and-drop
+  initializeDragAndDrop();
+
+  // Show the action buttons again
+  actionButtons.style.display = "flex";
+}
+
+/**
+ * Validates the player's submitted abilities against the expected abilities of the current champion.
+ *
+ * This function checks if the abilities placed in the slots match the expected abilities
+ * for the selected champion in the correct order. If all abilities are correct, the game proceeds
+ * to the next round by resetting the game state. If any ability is incorrect, an alert notifies the player.
+ *
+ * Process:
+ * 1. Select all ability slots from the DOM.
+ * 2. Iterate through each slot and compare the `data-ability-name` attribute of the slot
+ *    with the corresponding ability name from `currentChampionAbilities`.
+ * 3. If any slot's ability does not match the expected name or is empty, mark the submission as incorrect.
+ * 4. Display an alert:
+ *    - If all abilities are correct, notify the player and call `resetGameState` to proceed.
+ *    - If any abilities are incorrect, notify the player to try again.
+ * 5. Log validation details for debugging purposes.
+ *
+ * @function submitAnswers
+ * @returns {void} This function does not return any value.
+ */
+function submitAnswers() {
+  const slots = document.querySelectorAll(".ability-slot");
+  let isCorrect = true;
+
+  slots.forEach((slot, index) => {
+    const slotAbilityName = slot.getAttribute("data-ability-name"); // Get the ability name stored in the slot
+    const expectedAbilityName = currentChampionAbilities[index].name; // Get the expected ability name
+
+    if (!slotAbilityName || slotAbilityName !== expectedAbilityName) {
+      console.log(
+        `Slot ${index} validation failed: expected "${expectedAbilityName}", got "${slotAbilityName}"`
+      );
+      isCorrect = false;
+    }
+  });
+
+  if (isCorrect) {
+    alert("Congratulations! You matched all abilities correctly!");
+    resetGameState(); // Proceed to the next champion
+  } else {
+    alert("Incorrect abilities! Try again.");
+  }
+}
+
+/**
+ * Hides the Play button when the game starts.
+ *
+ * This function updates the `display` style property of the Play button to "none",
+ * effectively removing it from view. It is typically called when the game begins
+ * to prevent the player from restarting mid-round.
+ *
+ * Process:
+ * 1. Select the Play button from the DOM using its ID.
+ * 2. Update the `display` style property of the button to "none".
+ *
+ * @function hidePlayButton
+ * @returns {void} This function does not return any value.
+ */
+function hidePlayButton() {
+  const playButton = document.getElementById("play-button");
+  playButton.style.display = "none";
+}
+
+/**
+ * Initializes event listeners for the action buttons (Clear and Submit).
+ *
+ * This function sets up click event listeners for the Clear and Submit buttons to handle their respective actions:
+ * - The Clear button resets the ability slots using `clearDroppedAbilities`.
+ * - The Submit button validates the player's answers using `submitAnswers`.
+ *
+ * Process:
+ * 1. Select the Clear and Submit buttons from the DOM using their respective IDs.
+ * 2. Attach a click event listener to the Clear button to invoke `clearDroppedAbilities`.
+ * 3. Attach a click event listener to the Submit button to invoke `submitAnswers`.
  *
  * @function initializeActionButtons
+ * @returns {void} This function does not return any value.
  */
 function initializeActionButtons() {
   const clearButton = document.getElementById("clear-button");
@@ -326,9 +475,9 @@ function initializeActionButtons() {
     clearDroppedAbilities();
   });
 
-  // Placeholder for Submit button functionality
+  // Add click listener to the Submit button
   submitButton.addEventListener("click", () => {
-    console.log("Submit button clicked! Add functionality here.");
+    submitAnswers();
   });
 }
 
@@ -341,6 +490,7 @@ function initializeActionButtons() {
  * 2. Activate drag-and-drop functionality with `initializeDragAndDrop`.
  * 3. Display the action buttons (Clear and Submit) using `showActionButtons`.
  * 4. Ensure action buttons are ready by calling `initializeActionButtons`.
+ * 5. Hide the play button once the game begins using `hidePlayButton`.
  *
  * @function
  */
@@ -358,6 +508,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Show action buttons after Play is clicked
     showActionButtons();
+
+    // Hide the Play button
+    hidePlayButton();
   });
 
   // Initialize the action buttons
