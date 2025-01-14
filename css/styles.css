@@ -189,6 +189,15 @@ p.game-description {
   transform: scale(1.1);
 }
 
+.dragging {
+  opacity: 0.5;
+}
+
+.drag-over {
+  border: 2px dashed #007bff;
+  background-color: #e6f7ff;
+}
+
 /* Footer */
 footer {
   margin-top: 3rem;

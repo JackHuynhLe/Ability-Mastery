@@ -202,22 +202,30 @@ async function getRandomChampionAbilities(selectedChampion) {
  */
 function displayAbilities(abilities) {
   const abilitiesContainer = document.getElementById("abilities-container");
-  abilitiesContainer.innerHTML = ""; // Clear previous abilities if any
 
-  // Shuffle the abilities to randomize the order
+  // Clear previous abilities
+  abilitiesContainer.innerHTML = "";
+
+  // Shuffle abilities for randomness
   const shuffledAbilities = shuffleArray(abilities);
 
-  // Add the abilities to the DOM
-  shuffledAbilities.forEach((ability) => {
+  // Add abilities to the DOM
+  shuffledAbilities.forEach((ability, index) => {
     const abilityDiv = document.createElement("div");
     abilityDiv.classList.add("ability");
+
+    // Assign unique ID
+    abilityDiv.setAttribute("id", `ability-${index}`);
     abilityDiv.setAttribute("draggable", true);
     abilityDiv.innerHTML = `
-            <img src="${ability.image}" alt="${ability.name}" />
-            <p>${ability.name}</p>
-        `;
+      <img src="${ability.image}" alt="${ability.name}" />
+      <p>${ability.name}</p>
+    `;
     abilitiesContainer.appendChild(abilityDiv);
   });
+
+  // Initialize drag-and-drop functionality for the newly added abilities
+  initializeDragAndDrop();
 }
 
 /**
@@ -247,5 +255,6 @@ document.addEventListener("DOMContentLoaded", () => {
   playButton.addEventListener("click", async () => {
     console.log("Play button clicked!");
     await preloadChampionData(); // Call the function to fetch and display a random champion and their abilities
+    initializeDragAndDrop(); // Activate drag-and-drop
   });
 });
