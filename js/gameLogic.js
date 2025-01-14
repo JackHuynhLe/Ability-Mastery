@@ -247,14 +247,119 @@ function shuffleArray(array) {
   }
   return array;
 }
+/**
+ * Clears all dropped abilities from the slots.
+ *
+ * This function resets each ability slot by replacing the current image with the default placeholder image
+ * and restoring its default styles (border, background color, and shadow). It also re-enables dragging
+ * for all abilities, ensuring the game can be played again.
+ *
+ * Steps:
+ * 1. Iterate through all ability slots.
+ * 2. Reset each slot's image to the placeholder.
+ * 3. Restore default styles for the slots.
+ * 4. Enable dragging for all ability elements and reset their opacity.
+ *
+ * @function clearDroppedAbilities
+ */
+function clearDroppedAbilities() {
+  const slots = document.querySelectorAll(".ability-slot");
 
-// Attach an event listener to the play button to display champion name, splash art, and abilities
+  // Reset all slot images and styles
+  slots.forEach((slot) => {
+    const slotImage = slot.querySelector("img.placeholder");
+
+    if (slotImage) {
+      slotImage.src = "assets/pictures/missing_ping.jpg";
+      slotImage.alt = "Ability Placeholder";
+    }
+
+    // Reset slot styles
+    slot.style.borderColor = "#ccc";
+    slot.style.boxShadow = "0 2px 4px rgba(0, 0, 0, 0.1)";
+    slot.style.backgroundColor = "#f8f8f8";
+  });
+
+  // Reactivate dragging for all abilities
+  const abilities = document.querySelectorAll(".ability");
+  abilities.forEach((ability) => {
+    ability.setAttribute("draggable", true);
+    ability.style.opacity = "1"; // Reset opacity
+  });
+
+  console.log("All slots cleared and styles reset.");
+}
+
+/**
+ * Displays the "Clear" and "Submit" buttons.
+ *
+ * This function makes the action buttons (Clear and Submit) visible by modifying their CSS `display` property.
+ * The buttons are hidden by default and appear only after the "Play" button is clicked.
+ *
+ * @function showActionButtons
+ */
+function showActionButtons() {
+  const actionButtons = document.getElementById("action-buttons");
+  actionButtons.style.display = "flex"; // Show the buttons
+}
+
+/**
+ * Initializes event listeners for action buttons.
+ *
+ * This function attaches click event listeners to the Clear and Submit buttons:
+ * - The Clear button triggers `clearDroppedAbilities` to reset the game state.
+ * - The Submit button is a placeholder for future functionality.
+ *
+ * Steps:
+ * 1. Select the Clear and Submit buttons from the DOM.
+ * 2. Attach a click event listener to the Clear button to clear all dropped abilities.
+ * 3. Attach a click event listener to the Submit button to log a placeholder message.
+ *
+ * @function initializeActionButtons
+ */
+function initializeActionButtons() {
+  const clearButton = document.getElementById("clear-button");
+  const submitButton = document.getElementById("submit-button");
+
+  // Add click listener to the Clear button
+  clearButton.addEventListener("click", () => {
+    clearDroppedAbilities();
+  });
+
+  // Placeholder for Submit button functionality
+  submitButton.addEventListener("click", () => {
+    console.log("Submit button clicked! Add functionality here.");
+  });
+}
+
+/**
+ * Attaches event listeners to the Play button and initializes the game.
+ *
+ * This function waits for the DOM content to load, then attaches a click event listener to the Play button.
+ * When the Play button is clicked:
+ * 1. Fetch and display a random champion and their abilities using `preloadChampionData`.
+ * 2. Activate drag-and-drop functionality with `initializeDragAndDrop`.
+ * 3. Display the action buttons (Clear and Submit) using `showActionButtons`.
+ * 4. Ensure action buttons are ready by calling `initializeActionButtons`.
+ *
+ * @function
+ */
 document.addEventListener("DOMContentLoaded", () => {
   const playButton = document.getElementById("play-button");
 
   playButton.addEventListener("click", async () => {
     console.log("Play button clicked!");
-    await preloadChampionData(); // Call the function to fetch and display a random champion and their abilities
-    initializeDragAndDrop(); // Activate drag-and-drop
+
+    // Call the function to fetch and display a random champion and their abilities
+    await preloadChampionData();
+
+    // Activate drag-and-drop
+    initializeDragAndDrop();
+
+    // Show action buttons after Play is clicked
+    showActionButtons();
   });
+
+  // Initialize the action buttons
+  initializeActionButtons();
 });

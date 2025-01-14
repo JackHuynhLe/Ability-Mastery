@@ -105,19 +105,18 @@ p.game-description {
 
 .ability-slot {
   position: relative;
-  background-color: #e8e8e8;
+  background-color: #f8f8f8; /* Neutral background for slots */
   width: 4.5rem;
   height: 4.5rem;
   padding: 0;
-  border: 0.1em dashed #bbb;
-  border-radius: 0.3rem;
+  border: 0.1em solid #ccc; /* Subtle solid border */
+  border-radius: 0.5rem; /* Slightly rounded corners */
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden; /* Ensures the image stays within the slot */
-  text-align: center;
-  font-size: 0.9rem;
-  color: #333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
 }
 
 /* Placeholder Image */
@@ -152,6 +151,36 @@ p.game-description {
   border: 0.1em solid #ccc;
   box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.1);
 }
+
+/* Action Buttons Section */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem; /* Space between buttons */
+  margin: 2rem 0; /* Space above and below the buttons */
+}
+
+.action-buttons button {
+  padding: 0.6em 1.5em; /* Button size */
+  font-size: 1rem; /* Font size for text */
+  color: #fff; /* Text color */
+  background-color: #007bff; /* Button background color */
+  border: none; /* Remove borders */
+  border-radius: 0.3rem; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+}
+
+.action-buttons button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+.action-buttons button:active {
+  background-color: #003f7f; /* Even darker blue on click */
+  transform: translateY(0); /* Reset lift effect */
+}
+
 
 /* Drag-and-Drop Area */
 .ability-drag-area {
@@ -194,8 +223,9 @@ p.game-description {
 }
 
 .drag-over {
-  border: 2px dashed #007bff;
-  background-color: #e6f7ff;
+  border-color: #007bff; /* Highlight slot with blue border */
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* Add glow effect */
+  background-color: #e6f7ff; /* Slightly tinted background */
 }
 
 /* Footer */
