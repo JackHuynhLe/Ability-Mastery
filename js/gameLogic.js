@@ -1,4 +1,5 @@
 import { fetchChampionData } from "./fetchData.js";
+import { playSound } from "./utils.js"
 
 let champions = {}; // Store champion data globally
 let currentChampion = ""; // Store the current champion
@@ -425,11 +426,17 @@ function submitAnswers() {
   });
 
   if (isCorrect) {
-    alert("Congratulations! You matched all abilities correctly!");
-    resetGameState(); // Proceed to the next champion
+    playSound('assets/audio/victory.mp3'); // Play victory sound
+    setTimeout(() => {
+      alert("Congratulations! You matched all abilities correctly!");
+      resetGameState(); // Proceed to the next champion
+    }, 300); // Delay alert by 300ms to allow sound to start playing
   } else {
-    alert("Incorrect abilities! Try again.");
-  }
+    playSound('assets/audio/defeat.mp3'); // Play defeat sound
+    setTimeout(() => {
+      alert("Incorrect abilities! Try again.");
+    }, 300); // Delay alert by 300ms to allow sound to start playing
+  }  
 }
 
 /**
