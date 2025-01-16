@@ -542,25 +542,39 @@ document.addEventListener("DOMContentLoaded", () => {
   const mainContent = document.getElementById("main-content");
   const header = document.querySelector("header"); // Select the header
 
+  // Play hover sound
+  playButton.addEventListener("mouseover", () => {
+    playSound('assets/audio/play_hover.mp3'); // Play hover sound
+  });
+
+  // Play click sound and initialize the game
   playButton.addEventListener("click", async () => {
     console.log("Play button clicked!");
 
-    // Show the main content
-    mainContent.style.display = "block";
+    // Play the click sound immediately
+    playSound('assets/audio/play_click.mp3');
 
-    // Call the function to fetch and display a random champion and their abilities
-    await preloadChampionData();
+    // Delay the rest of the operations slightly to ensure the sound plays smoothly
+    setTimeout(async () => {
+      // Show the main content
+      mainContent.style.display = "block";
 
-    // Activate drag-and-drop
-    initializeDragAndDrop();
+      // Call the function to fetch and display a random champion and their abilities
+      await preloadChampionData();
 
-    // Show action buttons after Play is clicked
-    showActionButtons();
+      // Activate drag-and-drop
+      initializeDragAndDrop();
 
-    // Remove the header and play button section entirely
-    header.remove();
+      // Show action buttons after Play is clicked
+      showActionButtons();
+
+      // Remove the header and play button section entirely
+      header.remove();
+    }, 150); // Delay the operations by 150ms
   });
 
   // Initialize the action buttons
   initializeActionButtons();
 });
+
+
