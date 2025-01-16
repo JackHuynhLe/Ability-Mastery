@@ -1,5 +1,10 @@
 import { fetchChampionData } from "./fetchData.js";
-import { playSound } from "./utils.js"
+import { playSound } from "./utils.js";
+import {
+  incrementCorrect,
+  incrementIncorrect,
+  resetScoreboard,
+} from "./scoreBoard.js";
 
 let champions = {}; // Store champion data globally
 let currentChampion = ""; // Store the current champion
@@ -392,18 +397,25 @@ async function resetGameState() {
 /**
  * Validates the player's submitted abilities against the expected abilities of the current champion.
  *
- * This function checks if the abilities placed in the slots match the expected abilities
+ * This function ensures the abilities placed in the slots match the expected abilities
  * for the selected champion in the correct order. If all abilities are correct, the game proceeds
- * to the next round by resetting the game state. If any ability is incorrect, an alert notifies the player.
+ * to the next round by resetting the game state, and the player's score is updated. If any ability
+ * is incorrect, the game resets and updates the player's incorrect score.
  *
  * Process:
- * 1. Select all ability slots from the DOM.
- * 2. Iterate through each slot and compare the `data-ability-name` attribute of the slot
- *    with the corresponding ability name from `currentChampionAbilities`.
- * 3. If any slot's ability does not match the expected name or is empty, mark the submission as incorrect.
- * 4. Display an alert:
- *    - If all abilities are correct, notify the player and call `resetGameState` to proceed.
- *    - If any abilities are incorrect, notify the player to try again.
+ * 1. Retrieve all ability slots from the DOM.
+ * 2. Iterate through each slot and compare its `data-ability-name` attribute
+ *    to the corresponding ability name in `currentChampionAbilities`.
+ * 3. If a slot's ability name does not match the expected name or is empty, mark the submission as incorrect.
+ * 4. Play a sound and update the scoreboard:
+ *    - On correct submission:
+ *      - Play the victory sound.
+ *      - Increment the correct score using `incrementCorrect`.
+ *      - Reset the game state to load a new champion and abilities.
+ *    - On incorrect submission:
+ *      - Play the defeat sound.
+ *      - Increment the incorrect score using `incrementIncorrect`.
+ *      - Reset the game state to allow the player to try again.
  * 5. Log validation details for debugging purposes.
  *
  * @function submitAnswers
@@ -426,16 +438,13 @@ function submitAnswers() {
   });
 
   if (isCorrect) {
-    playSound('assets/audio/victory.mp3'); // Play victory sound
-    setTimeout(() => {
-      alert("Congratulations! You matched all abilities correctly!");
-      resetGameState(); // Proceed to the next champion
-    }, 300); // Delay alert by 300ms to allow sound to start playing
+    playSound("assets/audio/victory.mp3"); // Play victory sound
+    incrementCorrect(); // Update the scoreboard
+    resetGameState(); // Proceed to the next champion
   } else {
-    playSound('assets/audio/defeat.mp3'); // Play defeat sound
-    setTimeout(() => {
-      alert("Incorrect abilities! Try again.");
-    }, 300); // Delay alert by 300ms to allow sound to start playing
+    playSound("assets/audio/defeat.mp3"); // Play defeat sound
+    incrementIncorrect(); // Update the scoreboard
+    resetGameState(); //Proceed to the next champion
   }
 }
 
@@ -462,13 +471,14 @@ function hidePlayButton() {
  * Refreshes the current champion.
  *
  * This function resets the ability slots, reloads the current champion's data and abilities,
- * and reinitializes the drag-and-drop functionality. It is useful for scenarios where the user
- * wants to start over with a new champion without restarting the entire game.
+ * reinitializes the drag-and-drop functionality and resets scoreboard. It is useful for scenarios where the user
+ * wants to start over with a new champion without resfreshing the page.
  *
  * Steps:
  * 1. Clears the current ability slots.
  * 2. Reloads the current champion's data and abilities.
  * 3. Reinitializes drag-and-drop interactions for the updated abilities.
+ * 4. Reset the scoreboard.
  *
  * @async
  * @function refreshChampion
@@ -484,6 +494,9 @@ async function refreshChampion() {
 
   // Reinitialize drag-and-drop functionality
   initializeDragAndDrop();
+
+  // Reset scoreboard
+  resetScoreboard(); 
 
   console.log("Champion refreshed.");
 }
