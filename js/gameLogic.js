@@ -464,7 +464,9 @@ function submitAnswers() {
  */
 function hidePlayButton() {
   const playButton = document.getElementById("play-button");
+  const playSection = document.querySelector(".play-section");
   playButton.style.display = "none";
+  playSection.remove();
 }
 
 /**
@@ -496,7 +498,7 @@ async function refreshChampion() {
   initializeDragAndDrop();
 
   // Reset scoreboard
-  resetScoreboard(); 
+  resetScoreboard();
 
   console.log("Champion refreshed.");
 }

@@ -6,11 +6,15 @@ body {
   background-color: #f4f4f4;
   text-align: center;
   line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure body takes the full height of the viewport */
 }
 
 header {
-  margin: 2rem 0;
+  margin: 0.2rem 0;
 }
+
 
 h1.game-title {
   font-size: 2rem;
@@ -23,15 +27,23 @@ p.game-description {
   margin: 0 10%;
 }
 
+main {
+  flex: 1;
+  /* Allow the main content to expand and push the footer to the bottom */
+}
+
 /* Scoreboard */
 .scoreboard {
   display: flex;
-  justify-content: center;
-  gap: 2rem;
-  margin: 2rem 0;
-  flex-wrap: wrap; /* Wrap elements for smaller screens */
+  flex-direction: column;
+  /* Stack scoreboard items vertically */
+  gap: 1rem;
+  /* Add spacing between each score item */
+  width: 15%;
+  /* Set the width of the scoreboard on larger screens */
 }
 
+/* Score-item styling */
 .score-item {
   background-color: #fff;
   padding: 1em;
@@ -65,6 +77,21 @@ p.game-description {
   background-color: #0056b3;
 }
 
+/* Champion Section */
+.champion-section {
+  display: flex;
+  position: relative;
+  /* Ensures the child elements can be positioned relative to this container */
+  justify-content: center;
+  /* Horizontally center the container */
+  align-items: start;
+  /* Top-align scoreboard and image on wider screens */
+  margin: 1rem auto;
+  /* Add space above and below */
+  width: 70%;
+  /* Restrict the section width */
+}
+
 /* Champion Name Section */
 .champion-name-section {
   text-align: center;
@@ -76,22 +103,29 @@ p.game-description {
   color: #444;
 }
 
-/* Character Image Section */
-.champion-image-section {
-  margin: 2rem 0;
+/* Champion Image Container */
+.champion-image-container {
+  text-align: center;
+  flex: 1;
+  /* Allow the image container to adjust dynamically */
 }
 
-#champion-image-container {
-  width: 33%;
-  margin: 0 auto;
+.champion-image-container h2 {
+  font-size: 1.5rem;
+  color: #444;
+  margin-bottom: 1rem;
 }
 
-#champion-image {
+.champion-image-container img {
   width: 100%;
+  max-width: 49%;
+  /* Set a max size for the image */
   height: auto;
   border: 0.2em solid #ddd;
   border-radius: 0.5rem;
   box-shadow: 0 0.2em 0.6em rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
+  /* Keep the image centered */
 }
 
 /* Ability Slots */
@@ -99,24 +133,30 @@ p.game-description {
   display: flex;
   justify-content: center;
   gap: 1.5rem;
-  margin: 1.5rem 0;
+  margin: 0.5rem 0;
   flex-wrap: wrap;
 }
 
 .ability-slot {
   position: relative;
-  background-color: #f8f8f8; /* Neutral background for slots */
+  background-color: #f8f8f8;
+  /* Neutral background for slots */
   width: 4.5rem;
   height: 4.5rem;
   padding: 0;
-  border: 0.1em solid #ccc; /* Subtle solid border */
-  border-radius: 0.5rem; /* Slightly rounded corners */
+  border: 0.1em solid #ccc;
+  /* Subtle solid border */
+  border-radius: 0.5rem;
+  /* Slightly rounded corners */
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden; /* Ensures the image stays within the slot */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+  overflow: hidden;
+  /* Ensures the image stays within the slot */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Soft shadow for depth */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  /* Smooth transitions */
 }
 
 /* Placeholder Image */
@@ -126,7 +166,8 @@ p.game-description {
   height: 100%;
   object-fit: cover;
   border-radius: 0.3rem;
-  z-index: 1; /* Ensures the image stays behind the text */
+  z-index: 1;
+  /* Ensures the image stays behind the text */
   box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.1);
 }
 
@@ -140,7 +181,8 @@ p.game-description {
   font-weight: bold;
   color: #fff;
   text-shadow: 0 0.1em 0.3em rgba(0, 0, 0, 0.7);
-  z-index: 2; /* Ensures the text stays above the image */
+  z-index: 2;
+  /* Ensures the text stays above the image */
 }
 
 /* Placeholder Image */
@@ -156,31 +198,44 @@ p.game-description {
 .action-buttons {
   display: flex;
   justify-content: center;
-  gap: 1rem; /* Space between buttons */
-  margin: 2rem 0; /* Space above and below the buttons */
+  gap: 1rem;
+  /* Space between buttons */
+  margin: 2rem 0;
+  /* Space above and below the buttons */
 }
 
 .action-buttons button {
-  padding: 0.6em 1.5em; /* Button size */
-  font-size: 1rem; /* Font size for text */
-  color: #fff; /* Text color */
-  background-color: #007bff; /* Button background color */
-  border: none; /* Remove borders */
-  border-radius: 0.3rem; /* Rounded corners */
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+  padding: 0.6em 1.5em;
+  /* Button size */
+  font-size: 1rem;
+  /* Font size for text */
+  color: #fff;
+  /* Text color */
+  background-color: #007bff;
+  /* Button background color */
+  border: none;
+  /* Remove borders */
+  border-radius: 0.3rem;
+  /* Rounded corners */
+  cursor: pointer;
+  /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  /* Smooth transitions */
 }
 
 .action-buttons button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
-  transform: translateY(-2px); /* Slight lift effect */
+  background-color: #0056b3;
+  /* Darker blue on hover */
+  transform: translateY(-2px);
+  /* Slight lift effect */
 }
 
 .action-buttons button:active {
-  background-color: #003f7f; /* Even darker blue on click */
-  transform: translateY(0); /* Reset lift effect */
+  background-color: #003f7f;
+  /* Even darker blue on click */
+  transform: translateY(0);
+  /* Reset lift effect */
 }
-
 
 /* Drag-and-Drop Area */
 .ability-drag-area {
@@ -190,17 +245,21 @@ p.game-description {
 /* Abilities Container - Grid Layout */
 #abilities-container {
   display: grid;
-  grid-template-columns: repeat(10, 1fr); /* 10 abilities per row */
-  gap: 1rem; /* Space between abilities */
-  justify-items: center; /* Center abilities within each grid cell */
-  margin: 0 5%; /* Optional: Adjust the container's margin */
+  grid-template-columns: repeat(10, 1fr);
+  /* 10 abilities per row */
+  justify-items: center;
+  /* Center abilities within each grid cell */
+  margin:0% 10%;
+  /* Optional: Adjust the container's margin */
 }
 
 /* Abilities (divs inside the container) */
 .abilities-container div {
   background-color: #fff;
-  width: 6rem; /* Adjust width of abilities */
-  height: 6rem; /* Adjust height of abilities */
+  width: 6em;
+  /* Adjust width of abilities */
+  height: 6rem;
+  /* Adjust height of abilities */
   border-radius: 0.3rem;
   box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -213,6 +272,14 @@ p.game-description {
   transition: transform 0.2s ease;
 }
 
+.ability img {
+  margin: auto;
+}
+
+.ability p {
+  margin-top:auto;
+}
+
 .abilities-container div:active {
   cursor: grabbing;
   transform: scale(1.1);
@@ -223,24 +290,37 @@ p.game-description {
 }
 
 .drag-over {
-  border-color: #007bff; /* Highlight slot with blue border */
-  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* Add glow effect */
-  background-color: #e6f7ff; /* Slightly tinted background */
+  border-color: #007bff;
+  /* Highlight slot with blue border */
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+  /* Add glow effect */
+  background-color: #e6f7ff;
+  /* Slightly tinted background */
 }
 
 /* Footer */
 footer {
-  margin-top: 3rem;
+  background-color: #fff;
+  /* Optional: background color for the footer */
   font-size: 0.9rem;
   color: #888;
+  text-align: center;
+  width: 100%;
+  /* Ensure the footer spans the full width */
+  margin-top: auto;
+  /* Push the footer to the bottom when there's not enough content */
 }
 
 footer div {
   display: flex;
-  justify-content: space-between; /* Space between the items */
-  align-items: center; /* Vertically align items */
-  flex-wrap: wrap; /* Wrap to the next line on smaller screens */
-  gap: 1rem; /* Add spacing between items if needed */
+  justify-content: space-between;
+  /* Space between the items */
+  align-items: center;
+  /* Vertically align items */
+  flex-wrap: wrap;
+  /* Wrap to the next line on smaller screens */
+  gap: 1rem;
+  /* Add spacing between items if needed */
 }
 
 footer a {
@@ -248,49 +328,303 @@ footer a {
 }
 
 footer p {
-  margin: 0; /* Remove default margins for tighter spacing */
+  margin: 0;
+  /* Remove default margins for tighter spacing */
 }
 
+/* Use absolute positioning only on wider screens */
+@media (min-width: 1181px) {
+  .scoreboard {
+    position: absolute;
+    /* Position relative to the champion-section */
+    left: 5%;
+    top: 30%;
+    width: 15%;
+  }
+}
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  #character-image-container {
-    width: 40%;
+/* On smaller screens, reset scoreboard positioning so it doesn’t overlap */
+@media (max-width: 1180px) {
+  .champion-section {
+    flex-direction: column;
+    /* Stack scoreboard above champion on small screens */
+    align-items: center;
+    /* Center everything */
   }
 
-  .ability-slot,
-  .abilities-container div {
-    width: 4.5rem;
-    height: 4.5rem;
+  .scoreboard {
+    position: static;
+    /* Removes absolute positioning */
+    width: 90%;
+    /* Make scoreboard take most of the width but remain centered */
+    margin: 0 auto 1rem auto;
+    order: 1;
+    /* Place scoreboard before the champion image container if needed */
   }
 
+  .champion-image-container {
+    order: 2;
+    /* Champion image after scoreboard on small screens */
+    margin-top: 1rem;
+  }
+
+
+  /* Score-item styling */
   .score-item {
-    padding: 0.8em;
-    font-size: 0.8rem;
+    background-color: #fff;
+    padding: 1em;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.1);
+  }
+
+  .score-item p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #333;
+  }
+
+  /* Play Button */
+  .play-section {
+    margin: 1.5rem 0;
   }
 
   #play-button {
-    padding: 0.5em 1em;
-    font-size: 0.9rem;
+    padding: 0.6em 1.2em;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
   }
-}
 
-@media (max-width: 480px) {
-  #character-image-container {
-    width: 50%;
+  #play-button:hover {
+    background-color: #0056b3;
   }
 
-  .ability-slot,
+  /* Champion Name Section */
+  .champion-name-section {
+    text-align: center;
+    margin: 1em 0;
+  }
+
+  #champion-name {
+    font-size: 1.5em;
+    color: #444;
+  }
+
+  /* Champion Image Container */
+  .champion-image-container {
+    text-align: center;
+    flex: 1;
+    /* Allow the image container to adjust dynamically */
+  }
+
+  .champion-image-container h2 {
+    font-size: 1.5rem;
+    color: #444;
+    margin-bottom: 1rem;
+  }
+
+  .champion-image-container img {
+    width: 100%;
+    max-width: 49%;
+    /* Set a max size for the image */
+    height: auto;
+    border: 0.2em solid #ddd;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.2em 0.6em rgba(0, 0, 0, 0.2);
+    margin: 0 auto;
+    /* Keep the image centered */
+  }
+
+  /* Ability Slots */
+  .ability-slots {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+  }
+
+  .ability-slot {
+    position: relative;
+    background-color: #f8f8f8;
+    /* Neutral background for slots */
+    width: 4.5rem;
+    height: 4.5rem;
+    padding: 0;
+    border: 0.1em solid #ccc;
+    /* Subtle solid border */
+    border-radius: 0.5rem;
+    /* Slightly rounded corners */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    /* Ensures the image stays within the slot */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Soft shadow for depth */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    /* Smooth transitions */
+  }
+
+  /* Placeholder Image */
+  .ability-slot img.placeholder {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.3rem;
+    z-index: 1;
+    /* Ensures the image stays behind the text */
+    box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.1);
+  }
+
+  /* Ability Labels */
+  .ability-slot .ability-label {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1em;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 0.1em 0.3em rgba(0, 0, 0, 0.7);
+    z-index: 2;
+    /* Ensures the text stays above the image */
+  }
+
+  /* Action Buttons Section */
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    /* Space between buttons */
+    margin: 2rem 0;
+    /* Space above and below the buttons */
+  }
+
+  .action-buttons button {
+    padding: 0.6em 1.5em;
+    /* Button size */
+    font-size: 1rem;
+    /* Font size for text */
+    color: #fff;
+    /* Text color */
+    background-color: #007bff;
+    /* Button background color */
+    border: none;
+    /* Remove borders */
+    border-radius: 0.3rem;
+    /* Rounded corners */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    /* Smooth transitions */
+  }
+
+  .action-buttons button:hover {
+    background-color: #0056b3;
+    /* Darker blue on hover */
+    transform: translateY(-2px);
+    /* Slight lift effect */
+  }
+
+  .action-buttons button:active {
+    background-color: #003f7f;
+    /* Even darker blue on click */
+    transform: translateY(0);
+    /* Reset lift effect */
+  }
+
+  /* Drag-and-Drop Area */
+  .ability-drag-area {
+    margin: 2rem 0;
+  }
+
+  /* Abilities Container - Grid Layout */
+  #abilities-container {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    /* 10 abilities per row */
+    gap: 1rem;
+    /* Space between abilities */
+    justify-items: center;
+    /* Center abilities within each grid cell */
+    margin: 0 5%;
+    /* Optional: Adjust the container's margin */
+  }
+
+  /* Abilities (divs inside the container) */
   .abilities-container div {
-    width: 4rem;
-    height: 4rem;
+    background-color: #fff;
+    width: 6rem;
+    /* Adjust width of abilities */
+    height: 6rem;
+    /* Adjust height of abilities */
+    border-radius: 0.3rem;
+    box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-size: 0.8rem;
+    color: #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    transition: transform 0.2s ease;
   }
 
-  h1.game-title {
-    font-size: 1.8rem;
+  .abilities-container div:active {
+    cursor: grabbing;
+    transform: scale(1.1);
   }
 
-  p.game-description {
+  .dragging {
+    opacity: 0.5;
+  }
+
+  .drag-over {
+    border-color: #007bff;
+    /* Highlight slot with blue border */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+    /* Add glow effect */
+    background-color: #e6f7ff;
+    /* Slightly tinted background */
+  }
+
+  /* Footer */
+  footer {
+    background-color: #fff;
+    /* Optional: background color for the footer */
     font-size: 0.9rem;
+    color: #888;
+    text-align: center;
+    width: 100%;
+    /* Ensure the footer spans the full width */
+    margin-top: auto;
+    /* Push the footer to the bottom when there's not enough content */
+  }
+
+  footer div {
+    display: flex;
+    justify-content: space-between;
+    /* Space between the items */
+    align-items: center;
+    /* Vertically align items */
+    flex-wrap: wrap;
+    /* Wrap to the next line on smaller screens */
+    gap: 1rem;
+    /* Add spacing between items if needed */
+  }
+
+  footer a {
+    text-decoration: none;
+  }
+
+  footer p {
+    margin: 0;
+    /* Remove default margins for tighter spacing */
   }
 }

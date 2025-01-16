@@ -1,23 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ability Mastery</title>
-    <link rel="stylesheet" href="css/styles.css" />
-  </head>
-  <body>
-    <header>
-      <h1 class="game-title">Ability Mastery</h1>
-      <p class="game-description">
-        Test your mastery of League of Legends abilities by matching the correct
-        abilities to each champion!
-      </p>
-    </header>
 
-    <main>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ability Mastery</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+  <header>
+    <h1 class="game-title">Ability Mastery</h1>
+    <p class="game-description">
+      Test your mastery of League of Legends abilities by matching the correct
+      abilities to each champion!
+    </p>
+  </header>
+
+  <main>
+
+    <!-- Play Button -->
+    <section class="play-section">
+      <button id="play-button">Play</button>
+    </section>
+
+    <section class="champion-section">
       <!-- Scoreboard -->
-      <section class="scoreboard">
+      <div class="scoreboard">
         <div class="score-item">
           <p><strong>Correct:</strong> <span id="correct-score">0</span></p>
         </div>
@@ -34,100 +43,68 @@
             <strong>Longest Streak:</strong> <span id="longest-streak">0</span>
           </p>
         </div>
-      </section>
-
-      <!-- Play Button -->
-      <section class="play-section">
-        <button id="play-button">Play</button>
-      </section>
-
-      <!-- Champion Name -->
-      <section class="champion-name-section">
-        <h2 id="champion-name">Champion: ?</h2>
-      </section>
+      </div>
 
       <!-- Champion Image Section -->
-      <section class="champion-image-section">
-        <div id="champion-image-container">
-          <img
-            id="champion-image"
-            src="assets/pictures/missing_ping.jpg"
-            alt="Champion Image"
-          />
-        </div>
-      </section>
-
-      <!-- Ability Slots -->
-      <section class="ability-slots">
-        <div class="ability-slot" id="passive-slot">
-          <img
-            src="assets/pictures/missing_ping.jpg"
-            alt="Passive Ability"
-            class="placeholder"
-          />
-          <p class="ability-label">Passive</p>
-        </div>
-        <div class="ability-slot" id="q-slot">
-          <img
-            src="assets/pictures/missing_ping.jpg"
-            alt="Q Ability"
-            class="placeholder"
-          />
-          <p class="ability-label">Q</p>
-        </div>
-        <div class="ability-slot" id="w-slot">
-          <img
-            src="assets/pictures/missing_ping.jpg"
-            alt="W Ability"
-            class="placeholder"
-          />
-          <p class="ability-label">W</p>
-        </div>
-        <div class="ability-slot" id="e-slot">
-          <img
-            src="assets/pictures/missing_ping.jpg"
-            alt="E Ability"
-            class="placeholder"
-          />
-          <p class="ability-label">E</p>
-        </div>
-        <div class="ability-slot" id="r-slot">
-          <img
-            src="assets/pictures/missing_ping.jpg"
-            alt="R Ability"
-            class="placeholder"
-          />
-          <p class="ability-label">R</p>
-        </div>
-      </section>
-
-      <section class="action-buttons" style="display: none" id="action-buttons">
-        <button id="clear-button">Clear</button>
-        <button id="submit-button">Submit</button>
-        <button id="refresh-button">Refresh</button>
-      </section>
-
-      <!-- Drag-and-Drop Area for Abilities -->
-      <section id="abilities-container">
-        <!-- Abilities will be added dynamically here -->
-      </section>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-      <div class="footer-container">
-        <p>
-          Created by <a href="https://github.com/jackhuynhle" target="_blank" rel="noopener noreferrer">Jack Le</a>.
-          View the <a href="https://github.com/jackhuynhle/ability-mastery" target="_blank" rel="noopener noreferrer">GitHub repository</a>.
-        </p>
-        <p>&copy; 2025 Ability Mastery</p>
+      <div class="champion-image-container">
+        <h2 id="champion-name">Champion: ?</h2>
+        <img id="champion-image" src="assets/pictures/missing_ping.jpg" alt="Champion Image" />
       </div>
-    </footer>
-    
-    <script src="js/dragAndDrop.js"></script>
-    <script type="module" src="js/scoreBoard.js"></script>
-    <script type="module" src="js/fetchData.js"></script>
-    <script type="module" src="js/gameLogic.js"></script>
-    <script type="module" src="js/utils.js"></script>
-  </body>
+    </section>
+
+    <!-- Ability Slots -->
+    <section class="ability-slots">
+      <div class="ability-slot" id="passive-slot">
+        <img src="assets/pictures/missing_ping.jpg" alt="Passive Ability" class="placeholder" />
+        <p class="ability-label">Passive</p>
+      </div>
+      <div class="ability-slot" id="q-slot">
+        <img src="assets/pictures/missing_ping.jpg" alt="Q Ability" class="placeholder" />
+        <p class="ability-label">Q</p>
+      </div>
+      <div class="ability-slot" id="w-slot">
+        <img src="assets/pictures/missing_ping.jpg" alt="W Ability" class="placeholder" />
+        <p class="ability-label">W</p>
+      </div>
+      <div class="ability-slot" id="e-slot">
+        <img src="assets/pictures/missing_ping.jpg" alt="E Ability" class="placeholder" />
+        <p class="ability-label">E</p>
+      </div>
+      <div class="ability-slot" id="r-slot">
+        <img src="assets/pictures/missing_ping.jpg" alt="R Ability" class="placeholder" />
+        <p class="ability-label">R</p>
+      </div>
+    </section>
+
+    <section class="action-buttons" style="display: none" id="action-buttons">
+      <button id="clear-button">Clear</button>
+      <button id="submit-button">Submit</button>
+      <button id="refresh-button">Refresh</button>
+    </section>
+
+    <!-- Drag-and-Drop Area for Abilities -->
+    <section id="abilities-container">
+      <!-- Abilities will be added dynamically here -->
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <p>
+        Created by <a href="https://github.com/jackhuynhle" target="_blank" rel="noopener noreferrer">Jack Le</a>.
+        View the <a href="https://github.com/jackhuynhle/ability-mastery" target="_blank"
+          rel="noopener noreferrer">GitHub repository</a>.
+      </p>
+      <p>&copy; 2025 Ability Mastery</p>
+    </div>
+  </footer>
+
+  <script src="js/dragAndDrop.js"></script>
+  <script type="module" src="js/scoreBoard.js"></script>
+  <script type="module" src="js/fetchData.js"></script>
+  <script type="module" src="js/gameLogic.js"></script>
+  <script type="module" src="js/utils.js"></script>
+</body>
+
 </html>
