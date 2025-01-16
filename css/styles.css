@@ -235,9 +235,22 @@ footer {
   color: #888;
 }
 
-footer p {
-  margin: 0;
+footer div {
+  display: flex;
+  justify-content: space-between; /* Space between the items */
+  align-items: center; /* Vertically align items */
+  flex-wrap: wrap; /* Wrap to the next line on smaller screens */
+  gap: 1rem; /* Add spacing between items if needed */
 }
+
+footer a {
+  text-decoration: none;
+}
+
+footer p {
+  margin: 0; /* Remove default margins for tighter spacing */
+}
+
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
