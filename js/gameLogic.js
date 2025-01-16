@@ -449,27 +449,6 @@ function submitAnswers() {
 }
 
 /**
- * Hides the Play button when the game starts.
- *
- * This function updates the `display` style property of the Play button to "none",
- * effectively removing it from view. It is typically called when the game begins
- * to prevent the player from restarting mid-round.
- *
- * Process:
- * 1. Select the Play button from the DOM using its ID.
- * 2. Update the `display` style property of the button to "none".
- *
- * @function hidePlayButton
- * @returns {void} This function does not return any value.
- */
-function hidePlayButton() {
-  const playButton = document.getElementById("play-button");
-  const playSection = document.querySelector(".play-section");
-  playButton.style.display = "none";
-  playSection.remove();
-}
-
-/**
  * Refreshes the current champion.
  *
  * This function resets the ability slots, reloads the current champion's data and abilities,
@@ -541,23 +520,33 @@ function initializeActionButtons() {
 }
 
 /**
- * Attaches event listeners to the Play button and initializes the game.
+ * Initializes event listeners for the action buttons (Clear, Submit, and Refresh).
  *
- * This function waits for the DOM content to load, then attaches a click event listener to the Play button.
- * When the Play button is clicked:
- * 1. Fetch and display a random champion and their abilities using `preloadChampionData`.
- * 2. Activate drag-and-drop functionality with `initializeDragAndDrop`.
- * 3. Display the action buttons (Clear and Submit) using `showActionButtons`.
- * 4. Ensure action buttons are ready by calling `initializeActionButtons`.
- * 5. Hide the play button once the game begins using `hidePlayButton`.
+ * This function sets up click event listeners for the action buttons to handle their respective actions:
+ * - Clear Button: Resets all ability slots and clears dropped abilities.
+ * - Submit Button: Validates the player's submitted abilities against the correct answers.
+ * - Refresh Button: Reloads the current champion and abilities, resetting the game state.
+ *
+ * Process:
+ * 1. Retrieve the Clear, Submit, and Refresh buttons from the DOM using their respective IDs.
+ * 2. Attach a click event listener to each button to perform the following:
+ *    - Clear Button: Invoke `clearDroppedAbilities` to reset all slots.
+ *    - Submit Button: Invoke `submitAnswers` to validate the player's submission.
+ *    - Refresh Button: Invoke `refreshChampion` to reload the game state.
+ * 3. Ensure all event listeners are properly initialized for seamless gameplay.
  *
  * @function
  */
 document.addEventListener("DOMContentLoaded", () => {
   const playButton = document.getElementById("play-button");
+  const mainContent = document.getElementById("main-content");
+  const header = document.querySelector("header"); // Select the header
 
   playButton.addEventListener("click", async () => {
     console.log("Play button clicked!");
+
+    // Show the main content
+    mainContent.style.display = "block";
 
     // Call the function to fetch and display a random champion and their abilities
     await preloadChampionData();
@@ -568,8 +557,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // Show action buttons after Play is clicked
     showActionButtons();
 
-    // Hide the Play button
-    hidePlayButton();
+    // Remove the header and play button section entirely
+    header.remove();
   });
 
   // Initialize the action buttons

@@ -1,5 +1,5 @@
-/* General Reset and Base Styling */
-body {
+body,
+html {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
@@ -8,7 +8,13 @@ body {
   line-height: 1.5;
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Ensure body takes the full height of the viewport */
+  min-height: 100vh;
+  /* Default height before the game starts */
+}
+
+body.game-start {
+  min-height: 100vh;
+  /* Ensures 100% viewport height when the game starts */
 }
 
 header {
@@ -57,24 +63,48 @@ main {
   color: #333;
 }
 
-/* Play Button */
 .play-section {
-  margin: 1.5rem 0;
+  margin-top: 10%;
+  margin-right: auto;
+  margin-left: auto;
 }
 
-#play-button {
-  padding: 0.6em 1.2em;
-  font-size: 1rem;
-  color: #fff;
-  background-color: #007bff;
+/* Wrapper for the play button */
+.play-button-wrapper {
+  position: relative;
+  display: inline-block;
+  width: auto;
+  height: auto;
+}
+
+/* Play button image */
+.play-button-image {
+  display: block;
+  width: 100%;
+  /* Make the image responsive */
+  height: auto;
+  /* Maintain the aspect ratio */
+}
+
+/* Play button overlay */
+.play-overlay {
+  position: absolute;
+  top: 50%;
+  /* Adjust based on the position of "PLAY" in the image */
+  left: 57%;
+  /* Center within the image */
+  transform: translate(-50%, -50%);
+  width: 60%;
+  /* Adjust width to cover "PLAY" */
+  height: 40%;
+  /* Adjust height to cover "PLAY" */
+  background: transparent;
   border: none;
-  border-radius: 0.3rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-#play-button:hover {
-  background-color: #0056b3;
+  z-index: 2;
+  /* Ensure it stays above the image */
+  text-indent: -9999px;
+  /* Hide button text visually */
 }
 
 /* Champion Section */
@@ -86,7 +116,7 @@ main {
   /* Horizontally center the container */
   align-items: start;
   /* Top-align scoreboard and image on wider screens */
-  margin: 1rem auto;
+  margin: 0 auto;
   /* Add space above and below */
   width: 70%;
   /* Restrict the section width */
@@ -200,7 +230,7 @@ main {
   justify-content: center;
   gap: 1rem;
   /* Space between buttons */
-  margin: 2rem 0;
+  margin: 1.5rem 0;
   /* Space above and below the buttons */
 }
 
@@ -249,7 +279,7 @@ main {
   /* 10 abilities per row */
   justify-items: center;
   /* Center abilities within each grid cell */
-  margin:0% 10%;
+  margin: 0 1.5%;
   /* Optional: Adjust the container's margin */
 }
 
@@ -272,12 +302,16 @@ main {
   transition: transform 0.2s ease;
 }
 
+.ability {
+  margin-bottom: -5%;
+}
+
 .ability img {
   margin: auto;
 }
 
 .ability p {
-  margin-top:auto;
+  margin-top: auto;
 }
 
 .abilities-container div:active {
@@ -385,23 +419,18 @@ footer p {
 
   /* Play Button */
   .play-section {
-    margin: 1.5rem 0;
+    margin: 10rem 0;
   }
 
   #play-button {
-    padding: 0.6em 1.2em;
+    padding: -0.6em -1.2em;
     font-size: 1rem;
     color: #fff;
-    background-color: #007bff;
     border: none;
-    border-radius: 0.3rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
 
-  #play-button:hover {
-    background-color: #0056b3;
-  }
 
   /* Champion Name Section */
   .champion-name-section {
