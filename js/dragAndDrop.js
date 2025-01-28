@@ -124,22 +124,26 @@ function handleDragEnter(event) {
 /**
  * Handles the drop event for ability slots.
  *
- * This function is triggered when a draggable ability is dropped onto a slot. It updates
- * the slot with the dropped ability's image and name, stores the ability name in a
- * `data-ability-name` attribute for validation purposes, and disables dragging for the
- * used ability to prevent further interactions.
+ * This function ensures that a draggable ability is correctly placed into a valid slot
+ * while preventing the same ability from being used in multiple slots. It updates the slot
+ * with the ability's image and name, stores the ability name for validation purposes, and
+ * disables further interactions with the used ability.
  *
  * Process:
- * 1. Prevent the default drop behavior to allow custom handling.
- * 2. Retrieve the ID of the dragged ability from the `dataTransfer` object.
+ * 1. Prevent the default drop behavior to enable custom handling.
+ * 2. Retrieve the ID of the dragged ability using the `dataTransfer` object.
  * 3. Locate the dragged ability element and the target slot's placeholder image.
- * 4. Validate that both the dragged ability and slot image exist.
- * 5. If the slot is empty (contains the placeholder image):
- *    - Update the slot's image source and alt text with the dragged ability's image.
- *    - Store the ability's name in the slot's `data-ability-name` attribute.
- *    - Disable dragging for the used ability and reduce its opacity for feedback.
- * 6. Log the drop event for debugging purposes.
- * 7. If the slot is already filled, log a message indicating the slot is occupied.
+ * 4. Validate the following conditions:
+ *    - Both the dragged ability and the target slot exist.
+ *    - The dragged ability has not already been used in another slot.
+ *    - The target slot is empty (contains the placeholder image).
+ * 5. If all conditions are met:
+ *    - Update the slot's image source and alt text to match the dragged ability's image.
+ *    - Store the ability's name in the slot's `data-ability-name` attribute for future validation.
+ *    - Mark the dragged ability as "used" by setting a custom `data-used` attribute to `"true"`.
+ *    - Disable further dragging of the ability by setting `draggable` to `false` and reducing its opacity.
+ * 6. If the ability has already been used or the slot is occupied, log appropriate messages.
+ * 7. Provide debugging information, such as the ability name and slot state.
  *
  * @param {DragEvent} event - The drop event triggered by the browser.
  * @returns {void} This function does not return any value.
@@ -156,6 +160,13 @@ function handleDrop(event) {
     return;
   }
 
+  // Check if the ability is already used in another slot
+  if (draggedAbility.getAttribute("data-used") === "true") {
+    console.log("This ability is already used in another slot.");
+    return;
+  }
+
+  // Check if the slot is empty (contains the placeholder image)
   if (slotImage.src.includes("missing_ping.jpg")) {
     // Update the slot with the dragged ability's image and name
     slotImage.src = draggedAbility.querySelector("img").src;
@@ -164,6 +175,9 @@ function handleDrop(event) {
     // Store the ability name in a data-attribute for validation
     const abilityName = draggedAbility.querySelector("p").textContent.trim();
     event.currentTarget.setAttribute("data-ability-name", abilityName);
+
+    // Mark the ability as used
+    draggedAbility.setAttribute("data-used", "true");
 
     // Disable dragging for the used ability
     draggedAbility.setAttribute("draggable", false);
@@ -174,3 +188,4 @@ function handleDrop(event) {
     console.log("Slot already filled.");
   }
 }
+
