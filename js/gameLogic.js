@@ -306,6 +306,7 @@ function shuffleArray(array) {
  * 2. Iterate through all draggable abilities:
  *    - Reactivate the `draggable` attribute for all abilities.
  *    - Reset the opacity of abilities to make them fully visible.
+ *    - Remove the `data-used` attribute to allow re-dragging.
  * 3. Log a message to confirm that all slots and abilities have been reset.
  *
  * @function clearDroppedAbilities
@@ -319,24 +320,28 @@ function clearDroppedAbilities() {
     const slotImage = slot.querySelector("img.placeholder");
 
     if (slotImage) {
-      slotImage.src = "assets/pictures/missing_ping.jpg";
-      slotImage.alt = "Ability Placeholder";
+      slotImage.src = "assets/pictures/missing_ping.jpg"; // Reset to placeholder
+      slotImage.alt = "Ability Placeholder"; // Reset alt text
     }
 
     // Reset slot styles
     slot.style.borderColor = "#ccc";
     slot.style.boxShadow = "0 2px 4px rgba(0, 0, 0, 0.1)";
     slot.style.backgroundColor = "#f8f8f8";
+
+    // Clear the stored ability name
+    slot.removeAttribute("data-ability-name");
   });
 
   // Reactivate dragging for all abilities
   const abilities = document.querySelectorAll(".ability");
   abilities.forEach((ability) => {
-    ability.setAttribute("draggable", true);
+    ability.setAttribute("draggable", true); // Reactivate draggable
     ability.style.opacity = "1"; // Reset opacity
+    ability.removeAttribute("data-used"); // Allow re-dragging
   });
 
-  console.log("All slots cleared and styles reset.");
+  console.log("All slots and abilities have been reset.");
 }
 
 /**
@@ -544,7 +549,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Play hover sound
   playButton.addEventListener("mouseover", () => {
-    playSound('assets/audio/play_hover.mp3'); // Play hover sound
+    playSound("assets/audio/play_hover.mp3"); // Play hover sound
   });
 
   // Play click sound and initialize the game
@@ -552,7 +557,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("Play button clicked!");
 
     // Play the click sound immediately
-    playSound('assets/audio/play_click.mp3');
+    playSound("assets/audio/play_click.mp3");
 
     // Delay the rest of the operations slightly to ensure the sound plays smoothly
     setTimeout(async () => {
@@ -576,5 +581,3 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize the action buttons
   initializeActionButtons();
 });
-
-
