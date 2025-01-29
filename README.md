@@ -14,6 +14,9 @@
 - **JavaScript** for the game logic, drag-and-drop functionality, and dynamic fetching of champion data using the League of Legends API.
 - **Riot Games API** to retrieve champion and ability data.
 
+### Live Demo:
+The game is hosted live on **Netlify** at [Ability Mastery](https://abilitymastery.netlify.app/).
+
 ### How to Play:
 1. Start the game to see a randomly selected champion.
 2. Drag the correct abilities (Passive, Q, W, E, R) into the matching slots.
