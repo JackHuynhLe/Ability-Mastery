@@ -3,14 +3,26 @@ html {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
   text-align: center;
   line-height: 1.5;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  /* Default height before the game starts */
+
+  /* Background Image */
+  background-image: url('/assets/pictures/background.jpg'); /* Use the correct path */
+  background-size: cover;       /* Ensures the image covers the entire screen */
+  background-position: center;  /* Centers the image */
+  background-repeat: no-repeat; /* Prevents repeating */
+  background-attachment: fixed; /* Keeps the background fixed while scrolling */
 }
+
+/* Ensure the main container doesn't have a black background */
+main, .play-section {
+  background: transparent;
+}
+
+
 
 body.game-start {
   min-height: 100vh;
@@ -147,9 +159,7 @@ main {
 }
 
 .champion-image-container img {
-  width: 100%;
-  max-width: 49%;
-  /* Set a max size for the image */
+  width: 50%;
   height: auto;
   border: 0.2em solid #ddd;
   border-radius: 0.5rem;
@@ -320,15 +330,6 @@ main {
 
 .dragging {
   opacity: 0.5;
-}
-
-.drag-over {
-  border-color: #007bff;
-  /* Highlight slot with blue border */
-  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
-  /* Add glow effect */
-  background-color: #e6f7ff;
-  /* Slightly tinted background */
 }
 
 /* Footer */
