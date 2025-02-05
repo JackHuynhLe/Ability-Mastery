@@ -10,23 +10,20 @@ html {
   min-height: 100vh;
 
   /* Background Image */
-  background-image: url('/assets/pictures/background.jpg'); /* Use the correct path */
-  background-size: cover;       /* Ensures the image covers the entire screen */
-  background-position: center;  /* Centers the image */
-  background-repeat: no-repeat; /* Prevents repeating */
-  background-attachment: fixed; /* Keeps the background fixed while scrolling */
+  background-image: url('/assets/pictures/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
-/* Ensure the main container doesn't have a black background */
-main, .play-section {
+main,
+.play-section {
   background: transparent;
 }
 
-
-
 body.game-start {
   min-height: 100vh;
-  /* Ensures 100% viewport height when the game starts */
 }
 
 header {
@@ -36,34 +33,31 @@ header {
 
 h1.game-title {
   font-size: 2rem;
-  color: #333;
+  color: #e7b13d;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 p.game-description {
-  font-size: 1rem;
-  color: #555;
-  margin: 0 10%;
+  font-size: 1.2rem;
+  margin: 0 40%;
+  color: #0A0F19;
 }
 
 main {
   flex: 1;
-  /* Allow the main content to expand and push the footer to the bottom */
 }
 
 /* Scoreboard */
 .scoreboard {
   display: flex;
   flex-direction: column;
-  /* Stack scoreboard items vertically */
   gap: 1rem;
-  /* Add spacing between each score item */
   width: 15%;
-  /* Set the width of the scoreboard on larger screens */
 }
 
 /* Score-item styling */
 .score-item {
-  background-color: #fff;
+  background-color: #0A0F19;
   padding: 1em;
   border-radius: 0.5rem;
   box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.1);
@@ -72,7 +66,7 @@ main {
 .score-item p {
   margin: 0;
   font-size: 0.9rem;
-  color: #333;
+  color: #C8B688;
 }
 
 .play-section {
@@ -81,57 +75,44 @@ main {
   margin-left: auto;
 }
 
-/* Wrapper for the play button */
 .play-button-wrapper {
   position: relative;
   display: inline-block;
   width: auto;
   height: auto;
+  margin-top: 5%;
 }
 
 /* Play button image */
 .play-button-image {
   display: block;
   width: 100%;
-  /* Make the image responsive */
   height: auto;
-  /* Maintain the aspect ratio */
 }
 
 /* Play button overlay */
 .play-overlay {
   position: absolute;
   top: 50%;
-  /* Adjust based on the position of "PLAY" in the image */
-  left: 57%;
-  /* Center within the image */
+  left: 60%;
   transform: translate(-50%, -50%);
-  width: 60%;
-  /* Adjust width to cover "PLAY" */
-  height: 40%;
-  /* Adjust height to cover "PLAY" */
+  width: 74%;
+  height: 80%;
   background: transparent;
   border: none;
   cursor: pointer;
   z-index: 2;
-  /* Ensure it stays above the image */
-  text-indent: -9999px;
-  /* Hide button text visually */
+  text-indent: -999999px;
 }
 
 /* Champion Section */
 .champion-section {
   display: flex;
   position: relative;
-  /* Ensures the child elements can be positioned relative to this container */
   justify-content: center;
-  /* Horizontally center the container */
   align-items: start;
-  /* Top-align scoreboard and image on wider screens */
   margin: 0 auto;
-  /* Add space above and below */
   width: 70%;
-  /* Restrict the section width */
 }
 
 /* Champion Name Section */
@@ -141,15 +122,15 @@ main {
 }
 
 #champion-name {
-  font-size: 1.5em;
-  color: #444;
+  font-size: 1.8em;
+  color: #e7b13d;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
 }
 
 /* Champion Image Container */
 .champion-image-container {
   text-align: center;
   flex: 1;
-  /* Allow the image container to adjust dynamically */
 }
 
 .champion-image-container h2 {
@@ -159,14 +140,20 @@ main {
 }
 
 .champion-image-container img {
-  width: 50%;
+  width: 45%;
   height: auto;
-  border: 0.2em solid #ddd;
-  border-radius: 0.5rem;
-  box-shadow: 0 0.2em 0.6em rgba(0, 0, 0, 0.2);
+  display: block;
   margin: 0 auto;
-  /* Keep the image centered */
+
+  border: 1px solid black;
+  padding: 3px;
+  background: linear-gradient(to bottom, #C8AA6E, #A87E2E);
+
+  box-shadow:
+    0 0 0 1px black,
+    0 0 12px rgba(0, 0, 0, 0.8);
 }
+
 
 /* Ability Slots */
 .ability-slots {
@@ -179,36 +166,26 @@ main {
 
 .ability-slot {
   position: relative;
-  background-color: #f8f8f8;
-  /* Neutral background for slots */
   width: 4.5rem;
   height: 4.5rem;
-  padding: 0;
-  border: 0.1em solid #ccc;
-  /* Subtle solid border */
-  border-radius: 0.5rem;
-  /* Slightly rounded corners */
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  /* Ensures the image stays within the slot */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  /* Soft shadow for depth */
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  /* Smooth transitions */
+  background-color: black;
+  border: 1px solid black;
+  box-shadow:
+    0 0 0 1px black,
+    0 4px 6px rgba(0, 0, 0, 0.6);
 }
 
 /* Placeholder Image */
 .ability-slot img.placeholder {
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: 102%;
   object-fit: cover;
-  border-radius: 0.3rem;
   z-index: 1;
-  /* Ensures the image stays behind the text */
-  box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.1);
 }
 
 /* Ability Labels */
@@ -222,59 +199,48 @@ main {
   color: #fff;
   text-shadow: 0 0.1em 0.3em rgba(0, 0, 0, 0.7);
   z-index: 2;
-  /* Ensures the text stays above the image */
 }
 
 /* Placeholder Image */
 .ability-slot img.placeholder {
   width: 100%;
   height: auto;
-  border-radius: 0.3rem;
-  border: 0.1em solid #ccc;
-  box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.1);
 }
 
 /* Action Buttons Section */
 .action-buttons {
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  /* Space between buttons */
+  gap: 1.5rem;
   margin: 1.5rem 0;
-  /* Space above and below the buttons */
 }
 
 .action-buttons button {
-  padding: 0.6em 1.5em;
-  /* Button size */
+  padding: 0.6em 1.8em;
   font-size: 1rem;
-  /* Font size for text */
-  color: #fff;
-  /* Text color */
-  background-color: #007bff;
-  /* Button background color */
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #C8AA6E;
+  background-color: #0A0F19;
   border: none;
-  /* Remove borders */
   border-radius: 0.3rem;
-  /* Rounded corners */
   cursor: pointer;
-  /* Pointer cursor on hover */
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  /* Smooth transitions */
+  letter-spacing: 0.05em;
+  position: relative;
+  transition: color 0.3s ease, transform 0.2s ease;
 }
 
+/* Button Hover Effect */
 .action-buttons button:hover {
-  background-color: #0056b3;
-  /* Darker blue on hover */
-  transform: translateY(-2px);
-  /* Slight lift effect */
+  color: #EEC37B;
+  text-shadow: 0 0 8px rgba(200, 170, 110, 0.8);
+  transform: scale(1.05);
 }
 
 .action-buttons button:active {
-  background-color: #003f7f;
-  /* Even darker blue on click */
-  transform: translateY(0);
-  /* Reset lift effect */
+  color: #A87E2E;
+  text-shadow: 0 0 4px rgba(168, 126, 46, 0.8);
+  transform: scale(0.98);
 }
 
 /* Drag-and-Drop Area */
@@ -286,23 +252,18 @@ main {
 #abilities-container {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  /* 10 abilities per row */
   justify-items: center;
-  /* Center abilities within each grid cell */
-  margin: 0 1.5%;
-  /* Optional: Adjust the container's margin */
+  margin: 0 7%;
 }
 
 /* Abilities (divs inside the container) */
 .abilities-container div {
   background-color: #fff;
   width: 6em;
-  /* Adjust width of abilities */
   height: 6rem;
   border-radius: 0.3rem;
   box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.1);
   text-align: center;
-  font-size: 0.8rem;
   color: #555;
   display: flex;
   align-items: center;
@@ -317,11 +278,38 @@ main {
 
 .ability img {
   margin: auto;
+  object-fit: cover;
+  border-radius: 0.3rem;
+
+  border: 1px solid black;
+  padding: 2px;
+  background: linear-gradient(to bottom, #C8AA6E, #A87E2E);
+  box-shadow:
+    0 0 0 1px black,
+    0 0 12px rgba(200, 170, 110, 0.4);
+}
+
+.ability img:hover {
+  transform: scale(1.15);
+  box-shadow:
+    0 0 0 3px black,
+    0 0 14px rgba(200, 170, 110, 0.6);
+}
+
+.ability img:active {
+  transform: scale(0.95);
+  box-shadow:
+    0 0 0 3px black,
+    0 0 8px rgba(168, 126, 46, 0.6);
 }
 
 .ability p {
   margin-top: auto;
+  font-size: 0.8em;
+  color: #C8AA6E;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
 }
+
 
 .abilities-container div:active {
   cursor: grabbing;
@@ -334,38 +322,76 @@ main {
 
 /* Footer */
 footer {
-  background-color: #fff;
-  /* Optional: background color for the footer */
+  background: #0A0F19;
   font-size: 0.9rem;
-  color: #888;
+  color: #C8AA6E;
   text-align: center;
   width: 100%;
-  /* Ensure the footer spans the full width */
+  padding: 0.5rem 0;
   margin-top: auto;
-  /* Push the footer to the bottom when there's not enough content */
+  border-top: 2px solid #C8AA6E;
 }
 
+/* Footer Container */
 footer div {
   display: flex;
-  justify-content: space-between;
-  /* Space between the items */
-  align-items: center;
-  /* Vertically align items */
+  justify-content: center;
+  gap: 2rem;
   flex-wrap: wrap;
-  /* Wrap to the next line on smaller screens */
-  gap: 1rem;
-  /* Add spacing between items if needed */
+  align-items: center;
 }
 
 footer a {
   text-decoration: none;
+  color: #C8AA6E;
+  font-weight: bold;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
+footer a:hover {
+  color: #EEC37B;
+  text-shadow: 0 0 10px rgba(200, 170, 110, 0.8);
+}
+
+/* Footer Paragraph */
 footer p {
   margin: 0;
-  /* Remove default margins for tighter spacing */
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
 }
 
+/* Copyright Styling */
+footer p:last-child {
+  opacity: 0.8;
+  font-size: 0.8rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Not very mobile friendly yet*/
 /* Use absolute positioning only on wider screens */
 @media (min-width: 1181px) {
   .scoreboard {
@@ -612,15 +638,6 @@ footer p {
 
   .dragging {
     opacity: 0.5;
-  }
-
-  .drag-over {
-    border-color: #007bff;
-    /* Highlight slot with blue border */
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
-    /* Add glow effect */
-    background-color: #e6f7ff;
-    /* Slightly tinted background */
   }
 
   /* Footer */

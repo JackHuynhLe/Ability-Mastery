@@ -324,11 +324,6 @@ function clearDroppedAbilities() {
       slotImage.alt = "Ability Placeholder"; // Reset alt text
     }
 
-    // Reset slot styles
-    slot.style.borderColor = "#ccc";
-    slot.style.boxShadow = "0 2px 4px rgba(0, 0, 0, 0.1)";
-    slot.style.backgroundColor = "#f8f8f8";
-
     // Clear the stored ability name
     slot.removeAttribute("data-ability-name");
   });
