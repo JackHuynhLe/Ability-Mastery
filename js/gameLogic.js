@@ -505,6 +505,7 @@ function initializeActionButtons() {
 
   // Add click listener to the Clear button
   clearButton.addEventListener("click", () => {
+    playSound("assets/audio/clear.mp3"); 
     clearDroppedAbilities();
   });
 
@@ -515,6 +516,7 @@ function initializeActionButtons() {
 
   // Add click listener to the Refresh button
   refreshButton.addEventListener("click", async () => {
+    playSound("assets/audio/refresh.mp3"); 
     await refreshChampion(); // Call the refresh function
   });
 }
